@@ -5,6 +5,7 @@ import Sidebar from "./sidebar/Index";
 import AdminContextContainer, {
   AdminContext,
 } from "../../context/adminLayoutContext";
+import Dashboard from "../../pages/dashboard/Dashboard";
 const Index = () => {
   const { showSidebar } = useContext(AdminContext);
   useEffect(() => {
@@ -15,7 +16,9 @@ const Index = () => {
       <div>
         <Navbar />
         <Sidebar />
-        <section id="content_section" class={`bg-light py-2 px-3 ${showSidebar ? "with_sidebar" : null}`}></section>
+        <section id="content_section" className={`bg-light py-2 px-3 ${showSidebar ? "with_sidebar" : null}`}>
+          <Dashboard />
+        </section>
       </div>
     </AdminContextContainer>
   );

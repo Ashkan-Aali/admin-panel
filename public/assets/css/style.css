@@ -17,7 +17,9 @@ body{
     text-align: right;
     /* box-sizing: content-box */
 }
-
+a{
+    text-decoration: none;
+}
 
 /* scrollbars ------------------ */
 ::-webkit-scrollbar{
