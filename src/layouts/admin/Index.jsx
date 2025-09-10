@@ -1,24 +1,21 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import Navbar from "./navbar/Index";
 import Sidebar from "./sidebar/Index";
 // import toggleSidebar from "../../assets/js/toggleSidebar";
-import AdminContextContainer, {
-  AdminContext,
-} from "../../context/adminLayoutContext";
-import Dashboard from "../../pages/dashboard/Dashboard";
+import AdminContextContainer from "../../context/adminLayoutContext";
+import Content from "../../pages/Content";
+
 const Index = () => {
-  const { showSidebar } = useContext(AdminContext);
+  
   useEffect(() => {
     // toggleSidebar();
   }, []);
   return (
     <AdminContextContainer>
       <div>
+        <Content />
         <Navbar />
         <Sidebar />
-        <section id="content_section" className={`bg-light py-2 px-3 ${showSidebar ? "with_sidebar" : null}`}>
-          <Dashboard />
-        </section>
       </div>
     </AdminContextContainer>
   );

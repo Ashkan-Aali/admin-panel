@@ -20,6 +20,10 @@ body{
 a{
     text-decoration: none;
 }
+.disabled {
+    pointer-events: none !important;
+    opacity: 0.5;
+}
 
 /* scrollbars ------------------ */
 ::-webkit-scrollbar{
@@ -190,7 +194,6 @@ td , th {
     top: 64px;
     height: calc(100vh - 64px);
     padding: 0;
-    z-index: 1000;
 }
 #sidebar_section .mini_sidebar{
     width: 70px;
@@ -371,5 +374,10 @@ td , th {
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#0061FF", endColorstr="#60EFFF", GradientType=1 );
 }
 
-
+.modal-backdrop.fade {
+    display: none !important;
+}
+.navbar.fixed-top{
+    z-index: unset !important;
+}
 /* content end-------<<<<<<< */
