@@ -30,15 +30,15 @@ const Index = () => {
           <SidebarItem targetPath="/brands" Item={"مدیریت برند ها"} icon={"fas fa-copyright"} />
           <SidebarItem targetPath="/guaranties" Item={"مدیریت گارانتی ها"} icon={"fab fa-pagelines"} />
           <SidebarItem targetPath="/colors" Item={"مدیریت رنگ ها"} icon={"fas fa-palette"} />
-          <SidebarItem targetPath="/" Item={"مدیریت تخفیف ها"} icon={"fas fa-percentage"} />
+          <SidebarItem targetPath="/discounts" Item={"مدیریت تخفیف ها"} icon={"fas fa-percentage"} />
 
           {/* <!-- =================================== --> */}
 
           <SidebarGroupTitle title={"سفارشات و سبد"} />
 
-          <SidebarItem targetPath="/" Item={"مدیریت سبد ها"} icon={"fas fa-shopping-basket"} />
-          <SidebarItem targetPath="/" Item={"مدیریت سفارشات"} icon={"fas fa-luggage-cart"} />
-          <SidebarItem targetPath="/"
+          <SidebarItem targetPath="/carts" Item={"مدیریت سبد ها"} icon={"fas fa-shopping-basket"} />
+          <SidebarItem targetPath="/orders" Item={"مدیریت سفارشات"} icon={"fas fa-luggage-cart"} />
+          <SidebarItem targetPath="/deliveries"
             Item={"مدیریت نحوه ارسال"}
             icon={"fas fa-truck-loading"}
           />
@@ -47,15 +47,15 @@ const Index = () => {
 
           <SidebarGroupTitle title={"کاربران و همکاران"} />
 
-          <SidebarItem targetPath="/" Item={"مشاهده کاربران"} icon={"fas fa-users"} />
-          <SidebarItem targetPath="/" Item={"نقش ها"} icon={"fas fa-user-tag"} />
-          <SidebarItem targetPath="/" Item={"مجوز ها"} icon={"fas fa-shield-alt"} />
+          <SidebarItem targetPath="/users" Item={"مشاهده کاربران"} icon={"fas fa-users"} />
+          <SidebarItem targetPath="/roles" Item={"نقش ها"} icon={"fas fa-user-tag"} />
+          <SidebarItem targetPath="/permissions" Item={"مجوز ها"} icon={"fas fa-shield-alt"} />
           {/* <!-- =================================== --> */}
 
           <SidebarGroupTitle title={"ارتباطات"} />
 
-          <SidebarItem targetPath="/" Item={"سوال ها"} icon={"fas fa-question-circle"} />
-          <SidebarItem targetPath="/" Item={"نظرات"} icon={"fas fa-comment"} />
+          <SidebarItem targetPath="/questions" Item={"سوال ها"} icon={"fas fa-question-circle"} />
+          <SidebarItem targetPath="/comments" Item={"نظرات"} icon={"fas fa-comment"} />
         </div>
       </div>
     </section>
