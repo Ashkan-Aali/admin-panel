@@ -5374,7 +5374,8 @@ textarea.form-control-lg {
   margin: 0;
 }
 .modal-fullscreen .modal-content {
-  height: 100%;
+  min-height: 100%;
+  height: fit-content;
   border: 0;
   border-radius: 0;
 }

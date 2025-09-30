@@ -17,7 +17,7 @@ const PaginatedTable = ({
 
   useEffect(() => {
     let pCount = Math.ceil(initData.length / numOfPage);
-    console.log(pCount);
+
     setPageCount(pCount);
     let pArr = [];
     for (let i = 1; i <= pCount; i++) pArr = [...pArr, i];
