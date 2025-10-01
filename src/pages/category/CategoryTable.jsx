@@ -1,108 +1,77 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PaginatedTable from "../../components/PaginatedTable";
 import AddCategory from "./AddCategory";
+import { Alert } from "../../utils/alerts";
+import { getCategoriesService } from "../../services/category";
+import ShowInMenu from "./tableAdditons/ShowInMenu";
+import Actions from "./tableAdditons/Actions";
+import { Outlet, useParams } from "react-router";
+import { convertDateToJalali } from "../../utils/convertDate";
 
 const Categorytable = () => {
-  const data = [
-    {
-      id: "1",
-      category: "aaa",
-      title: "bbb",
-      price: "1111",
-      stock: "5",
-      like_count: "2",
-      status: "1",
-    },
-    {
-      id: "2",
-      category: "ccc",
-      title: "ddd",
-      price: "2222",
-      stock: "7",
-      like_count: "2",
-      status: "1",
-    },
-    {
-      id: "3",
-      category: "ccc",
-      title: "ddd",
-      price: "2222",
-      stock: "7",
-      like_count: "2",
-      status: "1",
-    },
-    {
-      id: "4",
-      category: "ccc",
-      title: "ddd",
-      price: "2222",
-      stock: "7",
-      like_count: "2",
-      status: "1",
-    },
-  ];
+  const [data, setData] = useState([]);
+  const params = useParams();
+  const handleGetCategories = async () => {
+    try {
+      const res = await getCategoriesService(params.categoryId);
+      if (res.status === 200) {
+        setData(res.data.data);
+      } else {
+        Alert("مشکل...!", res.data.message, "error");
+      }
+    } catch (error) {
+      console.log(error.message);
+      Alert("مشکل...!", "مشکلی از سمت سرور رخ داده", "error");
+    }
+  };
+
+  useEffect(() => {
+    handleGetCategories();
+  }, [params]);
 
   const dataInfo = [
     { field: "id", title: "#" },
     { field: "title", title: "عنوان محصول" },
-    { field: "price", title: "قیمت محصول" },
+    { field: "parent_id", title: "والد" },
   ];
 
-  const additionalElements = (itemId) => {
-    return (
-      <>
-        <i
-          className="fas fa-project-diagram text-info mx-1 hoverable_text pointer has_tooltip"
-          title="زیرمجموعه"
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-        ></i>
-        <i
-          className="fas fa-edit text-warning mx-1 hoverable_text pointer has_tooltip"
-          title="ویرایش دسته"
-          data-bs-toggle="modal"
-          data-bs-placement="top"
-          data-bs-target="#add_product_category_modal"
-        ></i>
-        <i
-          className="fas fa-plus text-success mx-1 hoverable_text pointer has_tooltip"
-          title="افزودن ویژگی"
-          data-bs-placement="top"
-          data-bs-toggle="modal"
-          data-bs-target="#add_product_category_attr_modal"
-        ></i>
-        <i
-          className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip"
-          title="حذف دسته"
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-        ></i>
-      </>
-    );
-  };
-
-  const additionField = {
-    title: "عملیات",
-    elements: (itemId) => additionalElements(itemId),
-  };
+  const additionField = [
+    {
+      title: "تاریخ",
+      elements: (rowData) => convertDateToJalali(rowData.created_at),
+    },
+    {
+      title: "نمایش در منو",
+      elements: (rowData) => <ShowInMenu rowData={rowData} />,
+    },
+    {
+      title: "عملیات",
+      elements: (rowData) => <Actions rowData={rowData} />,
+    },
+  ];
 
   const searchParams = {
     title: "جستجو",
     placeholder: "قسمتی از عنوان را وارد کنید",
-    searchField: "title"
-  }
+    searchField: "title",
+  };
 
   return (
     <>
-      <PaginatedTable
-        data={data}
-        dataInfo={dataInfo}
-        additionField={additionField}
-        searchParams={searchParams}
-        numOfPage={2}
-      >
-        <AddCategory />
-      </PaginatedTable>
+      <Outlet />
+      {data.length ? (
+        <PaginatedTable
+          data={data}
+          dataInfo={dataInfo}
+          additionField={additionField}
+          searchParams={searchParams}
+          numOfPage={2}
+        >
+          <AddCategory />
+        </PaginatedTable>
+      ) : (
+        <h5 className="text-center my-5 text-danger">هیچ دسته بندی یافت نشد</h5>
+      )}
     </>
     // <>
     //   <table className="table table-responsive text-center table-hover table-bordered">

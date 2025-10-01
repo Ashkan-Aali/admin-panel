@@ -17,6 +17,7 @@ import Permissions from './permissions/Permissions';
 import Questions from './questions/Questions';
 import Comments from './comments/Comments';
 import Logout from './auth/Logout';
+import CategoryChildren from './category/CategoryChildren';
 
 const Content = () => {
     const { showSidebar } = useContext(AdminContext);
@@ -24,7 +25,9 @@ const Content = () => {
         <section id="content_section" className={`bg-light py-2 px-3 ${showSidebar ? "with_sidebar" : null}`}>
           <Routes>
             <Route path='/' element={<Dashboard />} />
-            <Route path='/categories' element={<Category />} />
+            <Route path='/categories' element={<Category />}>
+              <Route path=':categoryId' element={<CategoryChildren />}/>
+            </Route>
             <Route path='/products' element={<Product />} />
             <Route path='/colors' element={<Colors />} />
             <Route path='/guaranties' element={<Guaranties />} />

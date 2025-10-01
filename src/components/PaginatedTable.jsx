@@ -62,7 +62,11 @@ const PaginatedTable = ({
             {dataInfo.map((i) => (
               <th key={i.field}>{i.title}</th>
             ))}
-            {additionField ? <th>{additionField.title}</th> : null}
+            {additionField
+              ? additionField.map((a, index) => (
+                  <th key={a.id + "__" + index}>{a.title}</th>
+                ))
+              : null}
           </tr>
         </thead>
         <tbody>
@@ -71,7 +75,11 @@ const PaginatedTable = ({
               {dataInfo.map((i) => (
                 <td key={i.field + "_" + d.id}>{d[i.field]}</td>
               ))}
-              {additionField ? <th>{additionField.elements(d.id)}</th> : null}
+              {additionField
+                ? additionField.map((a, index) => (
+                    <td key={a.id + "___" + index}>{a.elements(d)}</td>
+                  ))
+                : null}
             </tr>
           ))}
         </tbody>
