@@ -3,8 +3,12 @@ import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import FormikControl from "../../components/form/FormikControl";
 import { Alert } from "../../utils/alerts";
-import { getCategoriesService } from "../../services/category";
+import {
+  createNewCategoryService,
+  getCategoriesService,
+} from "../../services/category";
 import ModalsContainer from "../../components/ModalContainer";
+import SubmitButton from "../../components/form/SubmitButton";
 
 const initialValues = {
   parent_id: "",
@@ -15,10 +19,23 @@ const initialValues = {
   show_in_menu: true,
 };
 
-const onSubmit = (values, actions) => {
-  console.log(values , actions);
+const onSubmit = async (values, actions , setForceRender) => {
+  try {
+    values = {
+      ...values,
+      is_active: values.is_active ? 1 : 0,
+      show_in_menu: values.show_in_menu ? 1 : 0,
+    };
+    const res = await createNewCategoryService(values);
+    if (res.status == 201) {
+      Alert("رکورد ثبت شد", "عملیات با موفقیت ثبت شد", "success");
+      actions.resetForm();
+      setForceRender(last => last + 1 );
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
 };
-
 const validationSchema = Yup.object({
   parent_id: Yup.number(),
   title: Yup.string()
@@ -32,6 +49,7 @@ const validationSchema = Yup.object({
     "فقط از حروف و اعداد استفاده شود"
   ),
   image: Yup.mixed()
+    .nullable()
     .test("filesize", "حجم فایل نمیتواند بیشتر 500 کیلوبایت باشد", (value) =>
       !value ? true : value.size <= 500 * 1024
     )
@@ -41,13 +59,12 @@ const validationSchema = Yup.object({
   is_active: Yup.boolean(),
   show_in_menu: Yup.boolean(),
 });
-
 // const parents = [
 //   { id: 1, value: "test" },
 //   { id: 2, value: "test2" },
 // ];
 
-const Addcategory = () => {
+const Addcategory = ( {setForceRender} ) => {
   const [parents, setParents] = useState([]);
   const handleGetParentsCategories = async () => {
     try {
@@ -86,7 +103,7 @@ const Addcategory = () => {
       >
         <Formik
           initialValues={initialValues}
-          onSubmit={onSubmit}
+          onSubmit={(values , actions)=>onSubmit(values , actions , setForceRender)}
           validationSchema={validationSchema}
         >
           <Form>
@@ -140,9 +157,7 @@ const Addcategory = () => {
                   </div>
                 </div>
                 <div className="btn_box text-center col-12 col-md-6 col-lg-8 mt-4">
-                  <button type="submit" className="btn btn-primary ">
-                    ذخیره
-                  </button>
+                  <SubmitButton />
                 </div>
               </div>
             </div>
