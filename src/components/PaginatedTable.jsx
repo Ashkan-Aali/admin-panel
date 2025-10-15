@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import AddCategory from "../pages/category/AddCategory";
 import SpinnerLoad from "./SpinnerLoad";
 const PaginatedTable = ({
   data,
@@ -55,7 +54,6 @@ const PaginatedTable = ({
         </div>
         <div className="col-2 col-md-6 col-lg-4 d-flex flex-column align-items-end">
           {children}
-          {/* <AddCategory /> */}
         </div>
       </div>
       {loading ? (

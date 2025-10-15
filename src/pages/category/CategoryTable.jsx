@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import PaginatedTable from "../../components/PaginatedTable";
 import AddCategory from "./AddCategory";
-import { Alert } from "../../utils/alerts";
-import { getCategoriesService } from "../../services/category";
+import { Alert, Confirm } from "../../utils/alerts";
+import { deleteCategoryService, getCategoriesService } from "../../services/category";
 import ShowInMenu from "./tableAdditons/ShowInMenu";
 import Actions from "./tableAdditons/Actions";
 import { Outlet, useParams } from "react-router";
@@ -19,11 +19,25 @@ const Categorytable = () => {
       const res = await getCategoriesService(params.categoryId);
       if (res.status === 200) {
         setData(res.data.data);
+        console.log(res)
       }
     } catch (error) {
       console.log(error.message);
     } finally {
       setLoading(false);
+    }
+  };
+  const handleDeleteCategory = async (rowData) => {
+    if (await Confirm("حذف دست بندی", `آیا از حذف ${rowData.title} مطمین هستید؟`)) {
+      try{
+        const res = await deleteCategoryService(rowData.id);
+        if(res.status == 200){
+          setData(data.filter(d=>d.id != rowData.id));
+          Alert("انجام شد", res.data.message , "success");
+        }
+      }catch(error){
+        console.log(error.message);
+      }
     }
   };
 
@@ -46,9 +60,9 @@ const Categorytable = () => {
       title: "نمایش در منو",
       elements: (rowData) => <ShowInMenu rowData={rowData} />,
     },
-    {
-      title: "عملیات",
-      elements: (rowData) => <Actions rowData={rowData} />,
+    {title: "عملیات",
+      elements
+      : (rowData) => <Actions rowData={rowData}  handleDeleteCategory={handleDeleteCategory}/>,
     },
   ];
 
@@ -67,7 +81,7 @@ const Categorytable = () => {
         additionField={additionField}
         searchParams={searchParams}
         numOfPage={2}
-        loading = {loading}
+        loading={loading}
       >
         <AddCategory setForceRender={setForceRender} />
       </PaginatedTable>

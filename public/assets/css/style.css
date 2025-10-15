@@ -219,6 +219,7 @@ td , th {
 #sidebar_section .mini_sidebar{
     width: 70px;
     transition: all 300ms ease;
+    overflow-y: auto;
 }
 
 #sidebar_section:hover .mini_sidebar.collapsedd{
@@ -400,5 +401,12 @@ td , th {
 }
 .navbar.fixed-top{
     z-index: unset !important;
+}
+.danger_shadow{
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+}
+
+.is_inline .input-group{
+    margin: 0 !important;
 }
 /* content end-------<<<<<<< */
