@@ -72,7 +72,7 @@ const ColorsTable = () => {
         data={data}
         dataInfo={dataInfo}
         additionField={additionField}
-        numOfPage={4}
+        numOfPage={3}
         searchParams={searchParams}
         loading={loading}
       >

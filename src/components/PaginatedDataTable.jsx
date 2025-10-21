@@ -1,57 +1,48 @@
 import React, { useEffect, useState } from "react";
 import SpinnerLoad from "./SpinnerLoad";
-const PaginatedTable = ({
-  data,
-  dataInfo,
-  additionField,
-  children,
-  searchParams,
-  numOfPage,
-  loading,
-}) => {
-  const [initData, setInitData] = useState(data);
-  const [tableData, setTableData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pages, setPages] = useState([]);
-  const [pageCount, setPageCount] = useState(1);
-  const [searchChar, setSearchChar] = useState("");
 
+const PaginatedDataTable = ({
+  children,
+  tableData,
+  dataInfo,
+  loading,
+  pageCount,
+  currentPage,
+  setCurrentPage,
+  searchParams,
+  handleSearch,
+}) => {
   const pageRange = 2;
 
-  useEffect(() => {
-    let pCount = Math.ceil(initData.length / numOfPage);
+  const [pages, setPages] = useState([]);
 
-    setPageCount(pCount);
+  let timeout;
+
+  const handleSetSearchChar = (char) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      handleSearch(char);
+    }, 2000);
+  };
+
+  useEffect(() => {
     let pArr = [];
-    for (let i = 1; i <= pCount; i++) pArr = [...pArr, i];
+    for (let i = 1; i <= pageCount; i++) pArr.push(i);
     setPages(pArr);
-  }, [initData]);
-
-  useEffect(() => {
-    let start = currentPage * numOfPage - numOfPage;
-    let end = currentPage * numOfPage;
-    setTableData(initData.slice(start, end));
-  }, [currentPage, initData]);
-
-  useEffect(() => {
-    setInitData(
-      data.filter((d) => d[searchParams.searchField].includes(searchChar))
-    );
-    setCurrentPage(1);
-  }, [searchChar, data, searchParams]);
+  }, [pageCount]);
 
   return (
     <>
       <div className="row justify-content-between">
         <div className="col-10 col-md-6 col-lg-4">
-          <div className="input-group mb-3 dir-ltr">
-            <span className="input-group-text">{searchParams.title}</span>
+          <div className="input-group mb-3 dir_ltr">
             <input
               type="text"
               className="form-control"
-              placeholder={`${searchParams.placeholder}`}
-              onChange={(e) => setSearchChar(e.target.value)}
+              placeholder={searchParams.placeholder}
+              onChange={(e) => handleSetSearchChar(e.target.value)}
             />
+            <span className="input-group-text">{searchParams.title}</span>
           </div>
         </div>
         <div className="col-2 col-md-6 col-lg-4 d-flex flex-column align-items-end">
@@ -60,37 +51,33 @@ const PaginatedTable = ({
       </div>
       {loading ? (
         <SpinnerLoad colorClass={"text-primary"} />
-      ) : data.length ? (
+      ) : tableData.length ? (
         <table className="table table-responsive text-center table-hover table-bordered">
           <thead className="table-secondary">
             <tr>
-              {dataInfo.map((i) => (
-                <th key={i.field}>{i.title}</th>
+              {dataInfo.map((i, index) => (
+                <th key={i.field || `notField__${index}`}>{i.title}</th>
               ))}
-              {additionField
-                ? additionField.map((a, index) => (
-                    <th key={a.id + "__" + index}>{a.title}</th>
-                  ))
-                : null}
             </tr>
           </thead>
           <tbody>
             {tableData.map((d) => (
               <tr key={d.id}>
-                {dataInfo.map((i) => (
-                  <td key={i.field + "_" + d.id}>{d[i.field]}</td>
-                ))}
-                {additionField
-                  ? additionField.map((a, index) => (
-                      <td key={a.id + "___" + index}>{a.elements(d)}</td>
-                    ))
-                  : null}
+                {dataInfo.map((i, index) =>
+                  i.field ? (
+                    <td key={i.field + "_" + d.id}>{d[i.field]}</td>
+                  ) : (
+                    <td key={d.id + "__" + i.id + "__" + index}>
+                      {i.elements(d)}
+                    </td>
+                  )
+                )}
               </tr>
             ))}
           </tbody>
         </table>
       ) : (
-        <h5 className="text-center my-5 text-danger">هیچ دسته بندی یافت نشد</h5>
+        <h5 className="text-center my-5 text-danger">هیچ رکوردی یافت نشد</h5>
       )}
 
       {pages.length > 1 ? (
@@ -101,16 +88,15 @@ const PaginatedTable = ({
           <ul className="pagination dir_ltr">
             <li className="page-item">
               <span
-                className={`${
+                className={`page-link pointer ${
                   currentPage == 1 ? "disabled" : ""
-                } pointer page-link`}
+                }`}
                 aria-label="Previous"
                 onClick={() => setCurrentPage(currentPage - 1)}
               >
                 <span aria-hidden="true">&raquo;</span>
               </span>
             </li>
-
             {currentPage > pageRange ? (
               <li className="page-item">
                 <span
@@ -126,7 +112,7 @@ const PaginatedTable = ({
                 <span className="page-link">...</span>
               </li>
             ) : null}
-            
+
             {pages.map((page) => {
               return page < currentPage + pageRange &&
                 page > currentPage - pageRange ? (
@@ -142,7 +128,7 @@ const PaginatedTable = ({
                 </li>
               ) : null;
             })}
-            
+
             {currentPage + 1 <= pageCount - pageRange ? (
               <li className="page-item">
                 <span className="page-link ">...</span>
@@ -158,11 +144,12 @@ const PaginatedTable = ({
                 </span>
               </li>
             ) : null}
+
             <li className="page-item">
               <span
-                className={`${
+                className={`page-link pointer ${
                   currentPage == pageCount ? "disabled" : ""
-                } pointer page-link`}
+                }`}
                 aria-label="Next"
                 onClick={() => setCurrentPage(currentPage + 1)}
               >
@@ -176,4 +163,4 @@ const PaginatedTable = ({
   );
 };
 
-export default PaginatedTable;
+export default PaginatedDataTable;
