@@ -10,34 +10,23 @@ const ColorsTable = () => {
   const [loading, setLoading] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(null);
 
-  const dataInfo = [
-    { field: "id", title: "#" },
-    { field: "title", title: "نام رنگ" },
-    { field: "code", title: "کد رنگ" },
-  ];
-  const additionField = [
-    {
-      title: "رنگ",
-      elements: (rowData) => (
-        <div
-          className="w-100 h-100 d-block"
-          style={{ background: rowData.code, color: rowData.code }}
-        >
-          ...
-        </div>
-      ),
-    },
-    {
-      title: "عملیات",
-      elements: (rowData) => (
-        <Actions
-          rowData={rowData}
-          setColorToEdit={setColorToEdit}
-          handleDeleteColor={handleDeleteColor}
-        />
-      ),
-    },
-  ];
+ const dataInfo = [
+      { field: "id", title: "#" },
+      { field: "title", title: "عنوان" },
+      { field: "code", title: "کد رنگ" },
+      {
+        field: null,
+        title: "رنگ",
+        elements: (rowData) => <div className="w-100 h-100 d-block" style={{ background: rowData.code, color: rowData.code }}>...</div>,
+      },
+      {
+        field: null,
+        title: "عملیات",
+        elements: (rowData) => (
+          <Actions rowData={rowData} setColorToEdit={setColorToEdit} handleDeleteColor={handleDeleteColor}/>
+        ),
+      },
+    ];
 
   const searchParams = {
     title: "جستجو",
@@ -71,7 +60,6 @@ const ColorsTable = () => {
       <PaginatedTable
         data={data}
         dataInfo={dataInfo}
-        additionField={additionField}
         numOfPage={3}
         searchParams={searchParams}
         loading={loading}
