@@ -1,3 +1,4 @@
+import Checkbox from "./Checkbox";
 import Ckeditor from "./Ckeditor";
 import Date from "./Date";
 import File from "./File";
@@ -28,6 +29,8 @@ const FormikControl = (props) => {
       return <Date {...props} />;
     case "switch":
       return <Switch {...props} />;
+    case "checkbox":
+      return <Checkbox {...props} />;
     default:
       return null;
   }
