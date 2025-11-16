@@ -3,14 +3,16 @@ import PaginatedDataTable from "../../components/PaginatedDataTable";
 import { Alert, Confirm } from "../../utils/alerts";
 import AddButtonLink from "../../components/AddButtonLink";
 import Actions from "./tableAddition/Actions";
-import { getAllPaginatedUsersService } from "../../services/users";
+import { deleteUserService, getAllPaginatedUsersService } from "../../services/users";
+import { Outlet } from "react-router";
+import Roles from "./tableAddition/Roles";
 
 const UsersTable = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchChar, setSearchChar] = useState("");
   const [currentPage, setCurrentPage] = useState(1); // صفحه حال حاضر
-  const [countOnPage, setCountOnPage] = useState(8); // تعداد محصول در هر صفحه
+  const [countOnPage, setCountOnPage] = useState(8); 
   const [pageCount, setPageCount] = useState(0); // تعداد کل صفحات
 
  const dataInfo = [
@@ -20,6 +22,11 @@ const UsersTable = () => {
       field: null,
       title: "نام",
       elements: (rowData) => `${rowData.first_name || ""} ${rowData.last_name || ""}`,
+    },
+    {
+      field: null,
+      title: "نقش",
+      elements: (rowData) => <Roles rowData={rowData}/>,
     },
     { field: "phone", title: "شماره تلفن" },
     { field: "email", title: "ایمیل" },
@@ -57,13 +64,13 @@ const UsersTable = () => {
   }
 
   const handleDeleteUser = async (user)=>{
-    // if (await Confirm("حذف کاربر",`آیا از حذف ${product.title} اطمینان دارید؟`)) {
-    //   const res = await deleteProductService(product.id);
-    //   if (res.status === 200) {
-    //     Alert("انجام شد", res.data.message, "success");
-    //     handleGetProducts(currentPage, countOnPage, searchChar)
-    //   }
-    // }
+    if (await Confirm("حذف کاربر",`آیا از حذف ${user.user_name} اطمینان دارید؟`)) {
+      const res = await deleteUserService(user.id);
+      if (res.status === 200) {
+        Alert("انجام شد", res.data.message, "success");
+        handleGetUsers(currentPage, countOnPage, searchChar)
+      }
+    }
   }
 
   useEffect(() => {
@@ -83,6 +90,7 @@ const UsersTable = () => {
         handleSearch={handleSearch}
       >
         <AddButtonLink href={"/users/add-user"} />
+        <Outlet context={{setData}}/>
       </PaginatedDataTable>
     </>
   );

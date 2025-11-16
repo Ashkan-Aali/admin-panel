@@ -5,7 +5,7 @@ const Avatar = ({ name , imagePath }) => {
         <div className="pb-2 pt-2 d-flex flex-column avatar_li position-relative mb-2 sidebar_items">
             <span className="avatar_box mb-3">
               <img
-                className="w-100 rounded-circle"
+                className="w-100 h-100 rounded-circle"
                 src={imagePath}
               />
             </span>
