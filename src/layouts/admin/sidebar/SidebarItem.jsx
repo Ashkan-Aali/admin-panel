@@ -1,8 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router";
+import { useHasPermission } from "../../../hooks/permissionsHook";
 
-const SidebarItem = ({ title, icon , targetPath }) => {
-  return (
+const SidebarItem = ({ title, icon , targetPath , pTitle }) => {
+  const hasPerm = useHasPermission(pTitle);
+  return hasPerm && (
     <NavLink to={targetPath}
       className={`py-1 text-start pe-4 sidebar_menu_item sidebar_items `}
     >
