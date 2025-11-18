@@ -35,6 +35,10 @@ export const deleteProductImageService = (imageId)=>{
   return httpService(`/admin/products/gallery/${imageId}`, 'delete')
 }
 
+export const getOneProductService = (productId)=>{
+  return httpService(`/admin/products/${productId}`, "get");
+}
+
 export const setMainProductImageService = (imageId)=>{
   return httpService(`/admin/products/gallery/set_main/${imageId}`, 'get')
 }

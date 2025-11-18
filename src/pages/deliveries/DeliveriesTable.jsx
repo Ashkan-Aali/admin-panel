@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Actions from "./tableAddition/Actions";
 import { deleteDeliveryService, getAllDeliveriesService } from "../../services/deliveries";
 import { Alert, Confirm } from "../../utils/alerts";
 import PaginatedTable from "../../components/PaginatedTable";
 import { Outlet } from "react-router";
 import AddButtonLink from "../../components/AddButtonLink";
+import Actions from "./tableAddition/Actions";
 
 const DeliveriesTable = () => {
   const [data, setData] = useState([]);
