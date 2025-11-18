@@ -1,5 +1,4 @@
 import React from "react";
-import Card from "./Card";
 import ProductTable from "./ProductTable";
 import SaleChart from "./SaleChart";
 import Cards from "./Cards";

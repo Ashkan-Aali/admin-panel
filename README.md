@@ -1,12 +1,59 @@
 # React + Vite
+# 🛍️ Admin Dashboard & E-commerce Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive admin panel built with **React.js** for comprehensive e-commerce management.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **🛡️ Authentication & Authorization**
+  - Login/Logout with validation
+  - Role-Based Access Control (RBAC)
+  - Permission-based menu & operations
 
-## Expanding the ESLint configuration
+- **📊 Dashboard**
+  - Sales statistics cards
+  - Interactive charts with Persian date labels
+  - Low stock products alert
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **🛒 Product Management**
+  - Complete CRUD operations
+  - Image gallery with primary image selection
+  - Dynamic category attributes
+  - Rich text editor (CKEditor)
+
+- **📦 Order & Cart Management**
+  - Shopping cart CRUD operations
+  - Order processing
+  - Delivery methods management
+
+- **🏷️ Catalog Management**
+  - Categories & subcategories with auto-parent selection
+  - Brand management
+  - Warranty management
+  - Color management
+  - Discount codes with CRUD operations
+
+- **👥 User Management**
+  - User CRUD operations
+  - Role management with permissions
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React.js, Redux (State Management)
+- **Routing:** React Router with protected routes
+- **UI Components:** Custom components (Modal, Table, Pagination, Search)
+- **Forms:** React Select Search, Multi-select components
+- **Charts:** Chart.js integration
+- **Date:** Persian (Jalali) date support
+
+## 🚀 Installation
+
+```bash
+# Clone the repository
+git clone [repository-url]
+
+# Install dependencies
+npm install
+
+# Start development server
+npm start
