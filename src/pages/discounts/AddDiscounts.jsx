@@ -62,7 +62,6 @@ const AddDiscount = () => {
         })
       );
       const productIds = discountToEdit.products.map((p) => p.id).join("-");
-      console.log(productIds);
       setReInitialValues({
         ...discountToEdit,
         expire_at: convertDateToJalali(

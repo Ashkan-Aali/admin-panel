@@ -11,7 +11,6 @@ export const initialValues = {
 export const onSubmit = async (values, actions, setData, roleIdToEdit, editType) => {
     if (editType == "role") {
         const res = await editRoleService(roleIdToEdit, values)
-        console.log(res)
         if (res.status === 200) {
             Alert('انجام شد', res.data.message, 'success')
             setData(lastData=>{

@@ -53,7 +53,6 @@ const Attributes = () => {
     setLoading(true);
     try {
       const res = await getCategoryAttrsService(location.state.categoryData.id);
-      console.log(res);
       if (res.status === 200) {
         setData(res.data.data);
       }

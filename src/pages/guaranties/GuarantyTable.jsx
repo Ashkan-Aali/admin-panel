@@ -55,7 +55,6 @@ const GuarantyTable = () => {
     const res = await getAllGuaranteesService();
     res && setLoading(false);
     if (res.status === 200) {
-      console.log(res);
       setData(res.data.data);
     }
   };

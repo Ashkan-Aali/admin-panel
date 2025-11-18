@@ -26,7 +26,6 @@ const Categorytable = () => {
       const res = await getCategoriesService(params.categoryId);
       if (res.status === 200) {
         setData(res.data.data);
-        console.log(res);
       }
     } catch (error) {
       console.log(error.message);

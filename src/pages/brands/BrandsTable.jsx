@@ -42,7 +42,6 @@ const BrandsTable = () => {
     const res = await getAllBrandsService();
     res && setLoading(false);
     if (res.status === 200) {
-      console.log(res);
       setData(res.data.data);
     }
   };
