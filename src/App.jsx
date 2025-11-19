@@ -1,5 +1,5 @@
 import { useLocation } from "react-router";
-import AdminLayout from "./layouts/admin";
+import AdminLayout from "./layouts/admin/Index";
 import AuthLayout from "./layouts/auth/AuthLayout";
 import { Provider } from "react-redux";
 import store from "./redux/store";
