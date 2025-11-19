@@ -1,6 +1,6 @@
 import React from "react";
 import Input from "./Input";
-import Switch from "./switch";
+import Switch from "./Switch";
 // import Radio from "./Radio";
 // import Date from "./Date";
 // import File from "./File";
